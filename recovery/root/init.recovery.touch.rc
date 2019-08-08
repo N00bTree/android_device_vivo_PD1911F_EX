@@ -1,0 +1,159 @@
+on boot
+	chown system /proc/NVTSPI
+	chmod 0666 /proc/NVTSPI
+	chown system /proc/nvt_trimid
+	chmod 0666 /proc/nvt_trimid
+	chown system /proc/nvt_update
+	chmod 0666 /proc/nvt_update
+
+	chown system /sys/devices/virtual/fts/fts_i2c/iread
+	chown system /sys/devices/virtual/fts/fts_i2c/iread_result
+	chown system /sys/devices/virtual/fts/fts_i2c/iwr
+	chown system /sys/devices/virtual/fts/fts_i2c/iwr_result
+	chown system /sys/devices/virtual/fts/fts_i2c/iwrite
+	chown system /sys/devices/virtual/fts/fts_i2c/iwrite_result
+
+	chown system /sys/devices/virtual/fts-second/fts_i2c_second/iread
+	chown system /sys/devices/virtual/fts-second/fts_i2c_second/iread_result
+	chown system /sys/devices/virtual/fts-second/fts_i2c_second/iwr
+	chown system /sys/devices/virtual/fts-second/fts_i2c_second/iwr_result
+	chown system /sys/devices/virtual/fts-second/fts_i2c_second/iwrite
+	chown system /sys/devices/virtual/fts-second/fts_i2c_second/iwrite_result
+
+	chown system /dev/gtp_tools
+
+	chmod 0666 /sys/devices/virtual/fts-second/fts_i2c_second/iread
+	chmod 0666 /sys/devices/virtual/fts-second/fts_i2c_second/iread_result
+	chmod 0666 /sys/devices/virtual/fts-second/fts_i2c_second/iwr
+	chmod 0666 /sys/devices/virtual/fts-second/fts_i2c_second/iwr_result
+	chmod 0666 /sys/devices/virtual/fts-second/fts_i2c_second/iwrite
+	chmod 0666 /sys/devices/virtual/fts-second/fts_i2c_second/iwrite_result
+
+	chmod 0666 /sys/devices/virtual/fts/fts_i2c/iread
+	chmod 0666 /sys/devices/virtual/fts/fts_i2c/iread_result
+	chmod 0666 /sys/devices/virtual/fts/fts_i2c/iwr
+	chmod 0666 /sys/devices/virtual/fts/fts_i2c/iwr_result
+	chmod 0666 /sys/devices/virtual/fts/fts_i2c/iwrite
+	chmod 0666 /sys/devices/virtual/fts/fts_i2c/iwrite_result
+
+	chmod 0666 /dev/gtp_tools
+
+	chown system root /sys/touchscreen/app_name
+	chown system root /sys/touchscreen/at_sensor_test
+	chown root root /sys/touchscreen/cali_support
+	chown system root /sys/touchscreen/factory_key
+	chown system root /sys/touchscreen/firmware_module_id
+	chown system root /sys/touchscreen/firmware_version
+	chown system root /sys/touchscreen/gesture_point
+	chown root system /sys/touchscreen/imei_ctl
+	chown root system /sys/touchscreen/imei_write_support
+	chown system root /sys/touchscreen/log_switch
+	chown system root /sys/touchscreen/sensor_rx_tx
+	chown system root /sys/touchscreen/touchpanel_devices
+	chown system root /sys/touchscreen/ts_super_node
+
+	chmod 0644 /sys/touchscreen/app_name
+	chmod 0644 /sys/touchscreen/at_sensor_test
+	chmod 0644 /sys/touchscreen/cali_support
+	chmod 0644 /sys/touchscreen/factory_key
+	chmod 0644 /sys/touchscreen/firmware_module_id
+	chmod 0644 /sys/touchscreen/firmware_version
+	chmod 0644 /sys/touchscreen/gesture_point
+	chmod 0664 /sys/touchscreen/imei_ctl
+	chmod 0664 /sys/touchscreen/imei_write_support
+	chmod 0644 /sys/touchscreen/log_switch
+	chmod 0644 /sys/touchscreen/sensor_rx_tx
+	chmod 0644 /sys/touchscreen/touchpanel_devices
+	chmod 0644 /sys/touchscreen/ts_super_node
+
+	chown system /sys/class/vts/vivo_ts/sensor_caliberate
+	chown system /sys/class/vts/vivo_ts/factory_key
+	chown system /sys/class/vts/vivo_ts/firmware
+	chown system /sys/class/vts/vivo_ts/firmware_mp
+	chown system /sys/class/vts/vivo_ts/firmware_config
+	chown system /sys/class/vts/vivo_ts/gesture_points
+	chown system /sys/class/vts/vivo_ts/sensor_test
+	chown system /sys/class/vts/vivo_ts/threshold
+	chown system /sys/class/vts/vivo_ts/touch_area
+	chown system /sys/class/vts/vivo_ts/version
+	chown system /sys/class/vts/vivo_ts/frames/mutual_delta
+	chown system /sys/class/vts/vivo_ts/frames/mutual_raw
+	chown system /sys/class/vts/vivo_ts/frames/self_delta
+	chown system /sys/class/vts/vivo_ts/frames/self_raw
+	chown system /sys/class/vts/vivo_ts/properties/dimension_x
+	chown system /sys/class/vts/vivo_ts/properties/dimension_y
+	chown system /sys/class/vts/vivo_ts/properties/ic
+	chown system /sys/class/vts/vivo_ts/properties/incell
+	chown system /sys/class/vts/vivo_ts/properties/lcmid
+	chown system /sys/class/vts/vivo_ts/properties/long_press
+	chown system /sys/class/vts/vivo_ts/properties/need_calibration
+	chown system /sys/class/vts/vivo_ts/properties/no_flash
+	chown system /sys/class/vts/vivo_ts/properties/policy
+	chown system /sys/class/vts/vivo_ts/properties/rx_sensors
+	chown system /sys/class/vts/vivo_ts/properties/tx_sensors
+	chown system /sys/class/vts/vivo_ts/properties/type
+	chown system /sys/class/vts/vivo_ts/properties/vendor
+	chown system /sys/class/vts/vivo_ts/properties/virt_prox
+	chown system /sys/class/vts/vivo_ts/rom/imei
+	chown system /sys/class/vts/vivo_ts/rom/lcm
+	chown system /sys/class/vts/vivo_ts/status/calling
+	chown system /sys/class/vts/vivo_ts/status/charging
+	chown system /sys/class/vts/vivo_ts/status/faceprint
+	chown system /sys/class/vts/vivo_ts/status/finger_up
+	chown system /sys/class/vts/vivo_ts/status/fingerprint
+	chown system /sys/class/vts/vivo_ts/status/force_normal
+	chown system /sys/class/vts/vivo_ts/status/gesture
+	chown system /sys/class/vts/vivo_ts/status/lcd_on
+	chown system /sys/class/vts/vivo_ts/status/proximity
+	chown system /sys/class/vts/vivo_ts/status/rotation
+	chown system /sys/class/vts/vivo_ts/status/virt_prox_enable
+
+	chown system /sys/class/vts/vivo_ts_second/sensor_caliberate
+	chown system /sys/class/vts/vivo_ts_second/factory_key
+	chown system /sys/class/vts/vivo_ts_second/firmware
+	chown system /sys/class/vts/vivo_ts_second/firmware_mp
+	chown system /sys/class/vts/vivo_ts_second/firmware_config
+	chown system /sys/class/vts/vivo_ts_second/gesture_points
+	chown system /sys/class/vts/vivo_ts_second/sensor_test
+	chown system /sys/class/vts/vivo_ts_second/threshold
+	chown system /sys/class/vts/vivo_ts_second/touch_area
+	chown system /sys/class/vts/vivo_ts_second/version
+	chown system /sys/class/vts/vivo_ts_second/frames/mutual_delta
+	chown system /sys/class/vts/vivo_ts_second/frames/mutual_raw
+	chown system /sys/class/vts/vivo_ts_second/frames/self_delta
+	chown system /sys/class/vts/vivo_ts_second/frames/self_raw
+	chown system /sys/class/vts/vivo_ts_second/properties/dimension_x
+	chown system /sys/class/vts/vivo_ts_second/properties/dimension_y
+	chown system /sys/class/vts/vivo_ts_second/properties/ic
+	chown system /sys/class/vts/vivo_ts_second/properties/incell
+	chown system /sys/class/vts/vivo_ts_second/properties/lcmid
+	chown system /sys/class/vts/vivo_ts_second/properties/long_press
+	chown system /sys/class/vts/vivo_ts_second/properties/need_calibration
+	chown system /sys/class/vts/vivo_ts_second/properties/no_flash
+	chown system /sys/class/vts/vivo_ts_second/properties/policy
+	chown system /sys/class/vts/vivo_ts_second/properties/rx_sensors
+	chown system /sys/class/vts/vivo_ts_second/properties/tx_sensors
+	chown system /sys/class/vts/vivo_ts_second/properties/type
+	chown system /sys/class/vts/vivo_ts_second/properties/vendor
+	chown system /sys/class/vts/vivo_ts_second/properties/virt_prox
+	chown system /sys/class/vts/vivo_ts_second/rom/imei
+	chown system /sys/class/vts/vivo_ts_second/rom/lcm
+	chown system /sys/class/vts/vivo_ts_second/status/calling
+	chown system /sys/class/vts/vivo_ts_second/status/charging
+	chown system /sys/class/vts/vivo_ts_second/status/faceprint
+	chown system /sys/class/vts/vivo_ts_second/status/finger_up
+	chown system /sys/class/vts/vivo_ts_second/status/fingerprint
+	chown system /sys/class/vts/vivo_ts_second/status/force_normal
+	chown system /sys/class/vts/vivo_ts_second/status/gesture
+	chown system /sys/class/vts/vivo_ts_second/status/lcd_on
+	chown system /sys/class/vts/vivo_ts_second/status/proximity
+	chown system /sys/class/vts/vivo_ts_second/status/rotation
+	chown system /sys/class/vts/vivo_ts_second/status/virt_prox_enable
+	start touchupdate
+
+service touchupdate /system/bin/vts_app_recovery --update
+	class core
+	user system
+	disabled
+	seclabel u:r:vts_app:s0
+	oneshot

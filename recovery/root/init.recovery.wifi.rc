@@ -1,0 +1,203 @@
+################################################################################
+# wuzengshun add for recovery wifi                                             #
+################################################################################
+on early-init
+    mkdir /vendor/firmware_mnt
+    symlink /vendor/firmware_mnt /firmware
+    mkdir /mnt/vendor/persist/
+    chown root system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    symlink /mnt/vendor/persist /persist
+
+on init
+    export ANDROID_DNS_MODE local
+
+    mkdir /system/etc
+    mkdir /data/misc 0777
+    mkdir /data/misc/wifi 0777
+    mkdir /data/misc/wifi/sockets 0777
+    mkdir /data/misc/wifi/wpa_supplicant 0777
+
+    mkdir /data/vendor/wifi 0777
+    mkdir /data/vendor/wifi/sockets 0777
+    mkdir /data/vendor/wifi/hostapd 0770
+    mkdir /data/vendor/wifi/hostapd/ctrl 0770
+    mkdir /data/vendor/wifi/wpa_supplicant 0770
+    mkdir /data/vendor/wifi/wigig_hostapd 0770
+    mkdir /data/misc/wifi/wpa_supplicant 0770
+    mkdir /data/vendor/wifi/wpa 0777
+    mkdir /data/vendor/wifi/wpa/sockets 0777
+
+	mkdir /data/vendor 0777 root root
+	mkdir /data/vendor/tombstones 0777 system system
+	mkdir /data/vendor/tombstones/rfs 0777 rfs system
+	mkdir /data/vendor/tombstones/rfs/modem 0777 rfs system
+
+	mkdir /vendor/firmware 0777 root shell
+	mkdir /vendor/rfs 0777 root shell
+	mkdir /vendor/rfs/msm 0777 root shell
+	mkdir /vendor/rfs/msm/mpss 0777 root shell
+	mkdir /vendor/rfs/msm/mpss/readonly 0777 root shell
+	mkdir /vendor/rfs/msm/mpss/readonly/vendor 0777 root shell
+
+	symlink /data/vendor/tombstones/rfs/modem /vendor/rfs/msm/mpss/ramdumps
+	symlink /firmware /vendor/rfs/msm/mpss/readonly/firmware
+	symlink /mnt/vendor/persist/rfs/msm/mpss /vendor/rfs/msm/mpss/readwrite
+	symlink /mnt/vendor/persist/rfs/shared /vendor/rfs/msm/mpss/shared
+	symlink /mnt/vendor/persist/hlos_rfs/shared /vendor/rfs/msm/mpss/hlos
+	symlink /vendor/firmware /vendor/rfs/msm/mpss/readonly/vendor/firmware
+
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    symlink /system/etc/firmware /etc/firmware
+    #symlink /sbin /system/etc/wifi
+
+	#symlink /system/vendor /vendor
+	#symlink /firmware /vendor/firmware
+
+     #QCOM 8994/8996 QCA61x4
+    symlink /vendor/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini /vendor/etc/wifi/WCNSS_qcom_cfg.ini
+
+
+	mkdir /apps 0770
+    #mkdir /system/bin
+    mkdir /config
+
+    symlink /cache/recovery/wpa_supplicant.conf /data/misc/wifi/wpa_supplicant.conf
+
+on boot
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+
+service vndservicemanager /sbin/vndservicemanager /dev/vndbinder
+    user root
+    writepid /dev/cpuset/system-background/tasks
+	seclabel u:r:recovery:s0
+
+service subsys /sbin/subsys
+	user root
+	oneshot
+	seclabel u:r:recovery:s0
+
+on property:recovery.service=1
+	start vndservicemanager
+
+#################################################
+#For WLAN function begin
+#################################################
+#MTK
+#service wmtLoader /sbin/wmt_loader
+#    disabled
+#    oneshot
+#MTK
+#service conn_launcher /sbin/6620_launcher -p /system/etc/firmware/
+#    disabled
+
+service irsc_util /sbin/irsc_util "/vendor/etc/sec_config"
+    disabled
+    user root
+    oneshot
+    seclabel u:r:recovery:s0
+
+service vendor.rmt_storage /sbin/rmt_storage
+    disabled
+    user root
+    seclabel u:r:recovery:s0
+    ioprio rt 0
+
+service vendor.tftp_server /sbin/tftp_server
+   disabled
+   user root
+   seclabel u:r:recovery:s0
+
+service per_mgr /sbin/pm-service
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service pd_mapper /sbin/pd-mapper
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service per_proxy /sbin/pm-proxy
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service cnss-daemon /sbin/cnss-daemon -n -l
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+on property:survival.start.service=true
+    #chown -R rfs rfs /persist/rfs
+    #chown -R rfs rfs /persist/hlos_rfs
+    #chown -R rfs rfs /data/vendor/tombstones
+    start vendor.rmt_storage
+    start irsc_util
+    start vendor.tftp_server
+    start per_mgr
+    start pd_mapper
+    start per_proxy
+    start cnss-daemon
+
+service wpa_supplicant /sbin/wpa_supplicant -Dnl80211 -iwlan0 -dd -O/data/vendor/wifi/wpa/sockets -c/cache/recovery/wpa_supplicant.conf
+    disabled
+    seclabel u:r:hal_wifi_supplicant_default:s0
+
+service dhcpcd /sbin/dhcpcd wlan0 -B
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+#step 1, JUST for QCOM WCN36x0, 8994/8996 QCA6x74 not used
+#QCOM WCNSS START
+#service wcnss_start /sbin/wcnss_start
+#	disabled
+#    oneshot
+#    seclabel u:r:recovery:s0
+
+#MTK
+#on property:wmt.driver.status=ok
+#    start wmtLoader
+#    start conn_launcher
+
+#step 2
+#MTK
+#on property:wlan.driver.status=ok
+#    write /dev/wmtWifi "1"
+
+#QCOM
+on property:qcomwlan.driver.load=true
+    insmod /sbin/qca_cld3_wlan.ko
+
+#step 3
+on property:supplicant.status=running
+    start wpa_supplicant
+
+on property:supplicant.status=stopped
+    stop wpa_supplicant
+
+
+#step 4
+#on property:dhcpcd.status=running
+#    start dhcpcd
+
+#on property:dhcpcd.status=stopped
+#    stop dhcpcd
+
+#MTK
+#on property:wlan.driver.status=unloaded
+#    write /dev/wmtWifi "0"
+#################################################
+#For WLAN function end
+#################################################
+
