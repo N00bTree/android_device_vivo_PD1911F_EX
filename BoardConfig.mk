@@ -1,5 +1,5 @@
 # Device path
-LOCAL_PATH := device/realme/PD1911F_EX
+LOCAL_PATH := device/vivo/PD1911F_EX
 
 # Architecture
 TARGET_ARCH := arm64
@@ -64,7 +64,7 @@ BOARD_KERNEL_CMDLINE += androidboot.securebootkeyhash=2c0a52ffbd8db687b56f6a98d8
 BOARD_KERNEL_CMDLINE += androidboot.securebootkeyver=4
 BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3
 # Prebuilt kernel
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
 # Make boot image arguments
 BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 
